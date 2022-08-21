@@ -1,0 +1,17 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+
+const { content } = Astro.props;
+---
+
+<BaseLayout title={content.title}>
+    <slot />
+</BaseLayout>
+
+<style is:global>
+    .pageContainer img {
+        max-width: 100%;
+        border: 8px solid white;
+        border-radius: 8px;
+    }
+</style>

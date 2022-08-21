@@ -26,17 +26,65 @@ const title = props.title
     </head>
 
     <body>
-        <a href="/">
-            <img class="logo" src={Logo} alt="" />
-        </a>
-        <nav class="nav">
-            <a href="/whomst">Whomst</a>
-            <a href="/incantations">Incantations</a>
-            <a href="/aberrations">Aberrations</a>
-        </nav>
-        <div class="pageContainer">
-            <slot />
+        <div class="layout">
+            <div class="sidebar-nav">
+                <div class="floating-box">
+                    <a href="/">
+                        <img class="logo" src={Logo} alt="" />
+                    </a>
+                </div>
+            </div>
+            <main class="page-container">
+                <slot />
+            </main>
         </div>
+        <style>
+            .layout {
+                height: 100%;
+                display: grid;
+                grid-template-areas: "sidebar-nav" "main";
+                grid-template-columns: 280px 1fr;
+                grid-template-rows: 100%;
+            }
+
+            .sidebar-nav {
+                display: flex;
+                justify-content: center;
+                border-width: 0;
+                border-right-width: 1px;
+                border-style: dotted;
+                border-color: #8a1a7e;
+                background: linear-gradient(#0b0111, #2d0303);
+            }
+
+            .floating-box {
+            }
+
+            .page-container {
+                /* background-color: blueviolet; */
+                padding: 2em;
+            }
+
+            .logo {
+                display: block;
+                width: 100%;
+                max-width: 200px;
+                margin: 2em 0;
+            }
+
+            @media (max-width: 840px) {
+                .layout {
+                    grid-template-columns: 1fr;
+                    grid-template-rows: 150px 1fr;
+                }
+
+                .sidebar-nav {
+                    background: linear-gradient(#0b0111, #2d0303);
+                    border-right-width: 1px;
+                    border-bottom-width: 1px;
+                }
+            }
+        </style>
         <style is:global>
             ::selection {
                 background-color: #31011a;
@@ -45,11 +93,13 @@ const title = props.title
             }
 
             html {
-                /*18px*/
+                height: 100%;
                 font-size: 112.5%;
             }
 
             body {
+                height: 100%;
+                margin: 0;
                 background-color: #160022;
                 color: #f0e3f0;
                 font-family: "Source Serif Pro", system-ui, -apple-system,
@@ -109,13 +159,6 @@ const title = props.title
                 text-shadow: 0px 0px 31px #00e7ff;
             }
 
-            .nav {
-                display: flex;
-                max-width: 420px;
-                margin: 0 auto 2em;
-                justify-content: space-around;
-            }
-
             /* 
     ul {
         list-style: none;
@@ -143,19 +186,6 @@ const title = props.title
 
             .astro-code code {
                 font-family: "JetBrains Mono";
-            }
-
-            .logo {
-                display: block;
-                max-width: 420px;
-                margin: 42px auto;
-            }
-
-            .pageContainer {
-                margin-top: 1rem;
-                max-width: 769px;
-                margin-left: auto;
-                margin-right: auto;
             }
         </style>
     </body>
