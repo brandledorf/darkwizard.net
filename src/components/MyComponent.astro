@@ -1,0 +1,22 @@
+---
+export interface Props {
+    title: string;
+    greeting?: string;
+}
+
+const props = Astro.props as Props;
+---
+<h2>{props.title}</h2>
+{props.greeting && (
+    <b>{props.greeting}</b>
+)}
+
+<div class="lol">
+    <slot />
+</div>
+
+<style>
+    .lol {
+        border: 2px solid rebeccapurple;
+    }
+</style>

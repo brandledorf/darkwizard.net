@@ -1,0 +1,64 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+type IncantationFrontmatter = {
+	title: string;
+	tags: string;
+	excerpt?: string;
+}
+
+const Incantations = await Astro.glob<IncantationFrontmatter>('./incantation/**/*.md');
+---
+
+<BaseLayout>
+	<h2>Incantations</h2>
+	<ul class="unstyle">
+		{Incantations.map(post => (
+		<li>
+			<a class="title" href={post.url}>{post.frontmatter.title}</a>
+			{post.frontmatter.excerpt && (
+			<p>{post.frontmatter.excerpt}</p>
+			)}
+			{post.frontmatter.tags && (
+			<ul class="tags">
+				{post.frontmatter.tags.split(', ').map(tag =>
+				<li class="tag"><span>{tag}</span></li>
+				)}
+			</ul>
+			)}
+		</li>
+		))}
+	</ul>
+</BaseLayout>
+
+<style>
+	.title {
+		font-family: 'Grenze Gotisch';
+		font-size: 1.777rem;
+	}
+
+	.unstyle {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.tags {
+		display: flex;
+		gap: 1ch;
+		padding: 0;
+		list-style: none;
+	}
+
+	.tags li {
+		margin-bottom: 2.4em;
+	}
+
+	.tag {
+		border-radius: 100% 50%;
+		background-color: #31415b;
+		color: #d0c2c2;
+		font-size: .75em;
+		text-shadow: 0 1px 2px #000;
+	}
+</style>
